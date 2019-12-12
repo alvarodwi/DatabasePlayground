@@ -15,6 +15,7 @@ import utils.annotation.DisplayAs;
 //ini tabel yang bakal paling banyak datanya
 public class Kehadiran {
 
+    //db column
     private int id; // bakal autoincrement
     //foreign key
     private int idSiswa;
@@ -22,9 +23,12 @@ public class Kehadiran {
     private String jamMasuk;
     private String jamKeluar;
     private String status; //yang status isinya Alpa,Sakit,Izin,Absen
-    //getter
+    //attribute
+    private String nisSiswa;
+    private String namaSiswa;
 
-    @DisplayAs(value = Constants.NAMA, index = 0)
+    //getter
+    @DisplayAs(value = Constants.ID, index = 0)
     public int getId() {
         return id;
     }
@@ -37,19 +41,33 @@ public class Kehadiran {
         return idRekapan;
     }
 
-    @DisplayAs(value = Constants.JAM_MASUK, index = 1)
+    @DisplayAs(value = Constants.JAM_MASUK, index = 2)
     public String getJamMasuk() {
         return jamMasuk;
     }
 
-    @DisplayAs(value = Constants.JAM_KELUAR, index = 2)
+    @DisplayAs(value = Constants.JAM_KELUAR, index = 3)
     public String getJamKeluar() {
         return jamKeluar;
     }
 
-    @DisplayAs(value = Constants.STATUS_KEHADIRAN, index = 3)
+    @DisplayAs(value = Constants.STATUS_KEHADIRAN, index = 4)
     public String getStatus() {
         return status;
+    }
+    
+    @DisplayAs(value = Constants.NAMA_SISWA, index = 1)
+    public String getNamaSiswaAttribute() {
+        return this.namaSiswa;
+    }
+    
+    @DisplayAs(value = Constants.DETAIL, index = 5)
+    public String getDetailButtonAttribute(){
+        return Constants.DETAIL;
+    }
+
+    public String getNisSiswaAttribute() {
+        return this.nisSiswa;
     }
 
     //setter
@@ -77,4 +95,11 @@ public class Kehadiran {
         this.status = status;
     }
 
+    public void setNamaSiswaAttribute(String namaSiswa) {
+        this.namaSiswa = namaSiswa;
+    }
+
+    public void setNisSiswaAttribute(String nisSiswa) {
+        this.nisSiswa = nisSiswa;
+    }
 }

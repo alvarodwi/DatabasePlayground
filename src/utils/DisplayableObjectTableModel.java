@@ -13,11 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import utils.annotation.DisplayAs;
 
-/**
- *
- * @author AlvaroDwi
- */
-
 //based from https://www.logicbig.com/tutorials/java-swing/generate-jtable-model-with-annotation.html Table Model
 public class DisplayableObjectTableModel<T> extends ObjectTableModel<T> {
 
@@ -45,8 +40,9 @@ public class DisplayableObjectTableModel<T> extends ObjectTableModel<T> {
                 columnInfo.propertyName = pd.getName();
                 columnInfoMap.put(columnInfo.index, columnInfo);
             }
+            System.out.println(columnInfoMap.get(columnInfoMap.size()-2).displayName);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -77,6 +73,15 @@ public class DisplayableObjectTableModel<T> extends ObjectTableModel<T> {
     @Override
     public int getColumnCount() {
         return columnInfoMap.size();
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnIndex == columnInfoMap.size()-1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public Class<?> getColumnClass(int columnIndex) {

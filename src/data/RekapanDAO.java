@@ -29,7 +29,9 @@ public class RekapanDAO {
 
     //get single rekapan
     public Rekapan getDetailRekapan(int id) {
-        String query = "SELECT * FROM rekapan WHERE id = " + id;
+        String query = "SELECT * FROM rekapan r"
+                + " INNER JOIN matpel m ON(m.id = r.id_matpel)"
+                + "WHERE r.id = " + id;
         Rekapan rekapan = new Rekapan();
         try {
             ResultSet rs = conn.getQuery(query);
@@ -38,6 +40,8 @@ public class RekapanDAO {
             rekapan.setId(rs.getInt("id"));
             rekapan.setIdMatpel(rs.getInt("id_matpel"));
             rekapan.setTanggal(rs.getString("tanggal"));
+            //attribute
+            rekapan.setNamaMatpelAttribute(rs.getString("nama"));
             rs.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -47,7 +51,8 @@ public class RekapanDAO {
 
     //get all rekapan
     public List<Rekapan> getAllRekapan() {
-        String query = "SELECT * FROM rekapan";
+        String query = "SELECT * FROM rekapan r"
+                + " INNER JOIN matpel m ON(m.id = r.id_matpel)";
         List<Rekapan> listRekapan = new ArrayList<>();
         try {
             ResultSet rs = conn.getQuery(query);
@@ -56,6 +61,8 @@ public class RekapanDAO {
                 rekapan.setId(rs.getInt("id"));
                 rekapan.setIdMatpel(rs.getInt("id_matpel"));
                 rekapan.setTanggal(rs.getString("tanggal"));
+                //attribute
+                rekapan.setNamaMatpelAttribute(rs.getString("nama"));
                 //add rekapan from db into list
                 listRekapan.add(rekapan);
             }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import libs.SqliteConnection;
 import model.Kehadiran;
+import model.Siswa;
 import utils.Constants;
 
 /**
@@ -29,7 +30,9 @@ public class KehadiranDAO {
 
     //get single kehadiran
     public Kehadiran getDetailKehadiran(int id) {
-        String query = "SELECT * FROM kehadiran WHERE id = " + id;
+        String query = "SELECT * FROM kehadiran k"
+                + " INNER JOIN siswa s ON(s.id = k.id_siswa)"
+                + " WHERE k.id = " + id;
         Kehadiran kehadiran = new Kehadiran();
         try {
             ResultSet rs = conn.getQuery(query);
@@ -40,7 +43,9 @@ public class KehadiranDAO {
             kehadiran.setIdRekapan(rs.getInt("id_rekapan"));
             kehadiran.setJamMasuk(rs.getString("jam_masuk"));
             kehadiran.setJamKeluar(rs.getString("jam_keluar"));
-            kehadiran.setStatus(rs.getString("status_kehadiran"));
+            kehadiran.setStatus(rs.getString("status"));
+            //attribute
+            kehadiran.setNamaSiswaAttribute(rs.getString("nama"));
             rs.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -50,18 +55,23 @@ public class KehadiranDAO {
 
     //get all kehadiran
     public List<Kehadiran> getActiveKehadiran() {
-        String query = "SELECT * FROM kehadiran WHERE id_rekapan IS NULL";
+        String query = "SELECT * FROM kehadiran k"
+                + " INNER JOIN siswa s ON(s.id = k.id_siswa)"
+                + " WHERE k.id_rekapan IS NULL";
         List<Kehadiran> listKehadiran = new ArrayList<>();
         try {
             ResultSet rs = conn.getQuery(query);
             while (rs.next()) {
                 Kehadiran kehadiran = new Kehadiran();
+                //set data
                 kehadiran.setId(rs.getInt("id"));
                 kehadiran.setIdSiswa(rs.getInt("id_siswa"));
                 kehadiran.setIdRekapan(rs.getInt("id_rekapan"));
                 kehadiran.setJamMasuk(rs.getString("jam_masuk"));
                 kehadiran.setJamKeluar(rs.getString("jam_keluar"));
                 kehadiran.setStatus(rs.getString("status"));
+                //attribute
+                kehadiran.setNamaSiswaAttribute(rs.getString("nama"));
                 //add kehadiran from db into list
                 listKehadiran.add(kehadiran);
             }

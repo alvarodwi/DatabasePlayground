@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author AlvaroDwi
- */
 //based from https://www.logicbig.com/tutorials/java-swing/generate-jtable-model-with-annotation.html Table Model
 public abstract class ObjectTableModel<T> extends AbstractTableModel {
 

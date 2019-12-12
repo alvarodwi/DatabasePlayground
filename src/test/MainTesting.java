@@ -8,6 +8,7 @@ package test;
 import java.util.List;
 import model.Kehadiran;
 import model.Matpel;
+import model.Rekapan;
 import repository.AbsensiRepository;
 import model.Siswa;
 import model.User;
@@ -17,23 +18,29 @@ import model.User;
  * @author AlvaroDwi
  */
 public class MainTesting {
-    
+
     public static void main(String[] args) {
         AbsensiRepository repo = new AbsensiRepository();
-        
+
         Siswa thisSiswa = repo.siswaDao.getDetailSiswa(1);
         System.out.println(thisSiswa.getNama());
-        
+
         List<Matpel> allMatpel = repo.matpelDao.getAllMatpel();
-        
+
         allMatpel.forEach((matpel) -> {
             System.out.println(matpel.getNama());
         });
-        
+
         List<Kehadiran> activeKehadiran = repo.kehadiranDao.getActiveKehadiran();
-        
+
         activeKehadiran.forEach((presensi) -> {
             System.out.println(presensi.getStatus());
+        });
+
+        List<Rekapan> rekapan = repo.rekapanDao.getAllRekapan();
+
+        rekapan.forEach((rekap) -> {
+            System.out.println(rekap.getSemesterAttribute());
         });
 
 //        User newUser = new User();
@@ -44,15 +51,15 @@ public class MainTesting {
 //        newUser.setPassword("ummi");
 //        repo.userDao.insertUser(newUser);
 //        insert
-        Siswa newSiswa = new Siswa();
-        newSiswa.setId(10);
-        newSiswa.setNama("FAKHRI");
-        newSiswa.setKelas("RPL");
-        newSiswa.setNis("1718117119");
-        newSiswa.setJenisKelamin("L");
-        newSiswa.setTanggalLahir("April");
-        newSiswa.setTempatLahir("Bandung");
-        repo.siswaDao.insertSiswa(newSiswa);
+//        Siswa newSiswa = new Siswa();
+//        newSiswa.setId(10);
+//        newSiswa.setNama("FAKHRI");
+//        newSiswa.setKelas("RPL");
+//        newSiswa.setNis("1718117119");
+//        newSiswa.setJenisKelamin("L");
+//        newSiswa.setTanggalLahir("April");
+//        newSiswa.setTempatLahir("Bandung");
+//        repo.siswaDao.insertSiswa(newSiswa);
 //        update
 //        thisSiswa.setNama("ALVARO");
 //        repo.siswaDao.updateSiswa(thisSiswa.getId(), thisSiswa);

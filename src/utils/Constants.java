@@ -28,6 +28,8 @@ public class Constants {
     //rekapan
     public static final String TANGGAL_REKAPAN = "Tanggal Rekapan";
     public static final String NAMA_MATPEL = "Nama Matpel";
+    public static final String BULAN_REKAPAN = "Bulan";
+    public static final String SEMESTER_REKAPAN = "Semester";
     //kehadiran
     public static final String NAMA_SISWA = "Nama Siswa";
     public static final String JAM_MASUK = "Jam Masuk";
@@ -37,4 +39,6 @@ public class Constants {
     public static final String USERNAME = "Username";
     public static final String ROLE = "Role";
     public static final String NIK = "NIK";
+    //action
+    public static final String DETAIL = "Detail";
 }

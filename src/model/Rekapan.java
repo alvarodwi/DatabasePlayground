@@ -7,7 +7,9 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Constants;
@@ -22,10 +24,14 @@ public class Rekapan {
     private int id; // ini juga autoincrement
     private int idMatpel;
     private String tanggal; // format YYYY-MM-DD
-    //biar gampang filternya
+    //attributes
+    private String namaMatpel;
     private String bulan; //eg: Januari
-    private String tahun; // eg: 
+    private int tahun; // eg: 
     private String semester; // eg: Ganjil
+    //helper
+    private SimpleDateFormat sdfDatabase = new SimpleDateFormat("YYYY-MM-DD");
+    private SimpleDateFormat sdfUI = new SimpleDateFormat("dd, MMMM YYYY");
     //getter
 
     @DisplayAs(value = Constants.ID, index = 0)
@@ -54,42 +60,77 @@ public class Rekapan {
         this.extractDateStringAttribute(tanggal);
         this.tanggal = tanggal;
     }
-
     //attribute
     @DisplayAs(value = Constants.TANGGAL_REKAPAN, index = 1)
     public String getTanggalAttribute() {
         return this.formatDate(this.tanggal);
     }
 
-    //formatter
-    private void extractDateStringAttribute(String date) {
-        //split date
-        String[] splitDate = date.split("-");
-        this.bulan = splitDate[1];
-        this.tahun = splitDate[0];
-        this.determineSemester(splitDate[1]);
+    @DisplayAs(value = Constants.NAMA_MATPEL, index = 2)
+    public String getNamaMatpelAttribute() {
+        return this.namaMatpel;
     }
 
-    private void determineSemester(String month) {
-        if (Integer.parseInt(month) <= 6) {
-            this.semester = "Ganjil";
+    @DisplayAs(value = Constants.BULAN_REKAPAN, index = 3)
+    public String getBulanAttribute() {
+        return this.bulan;
+    }
+    
+    public int getTahunAttribute(){
+        return this.tahun;
+    }
+
+    @DisplayAs(value = Constants.SEMESTER_REKAPAN, index = 4)
+    public String getSemesterAttribute() {
+        return this.semester + "/" + this.tahun;
+    }
+    
+    public void setNamaMatpelAttribute(String namaMatpel) {
+        this.namaMatpel = namaMatpel;
+    }
+    
+    public void setBulanAttribute(String bulan) {
+        this.bulan = bulan;
+    }
+    
+    public void setTahunAttribute(int tahun){
+        this.tahun = tahun;
+    }
+    
+    public void setSemesterAttribute(String semester){
+        this.semester = semester;
+    }
+
+    //formatter
+    private void extractDateStringAttribute(String date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(convertStringToDate(date));
+
+        setBulanAttribute(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()));
+        setTahunAttribute(calendar.get(Calendar.YEAR));
+        setSemesterAttribute(determineSemester(calendar.get(Calendar.MONTH)));
+    }
+
+    private String determineSemester(int month) {
+        if (month <= 6) {
+            return "Ganjil";
         } else {
-            this.semester = "Genap";
+            return "Genap";
         }
     }
 
-    SimpleDateFormat sdfDatabase = new SimpleDateFormat("YYYY-MM-DD");
-    SimpleDateFormat sdfUI = new SimpleDateFormat("dd, MMMM YYYY");
-
-    private String formatDate(String date) {
-        Date formatted;
-        String result = "";
+    private Date convertStringToDate(String date) {
+        Date result = new Date();
         try {
-            formatted = sdfDatabase.parse(date);
-            result = sdfUI.format(formatted);
+            result = sdfDatabase.parse(date);
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
         return result;
+    }
+
+    private String formatDate(String date) {
+        Date targetDate = convertStringToDate(date);
+        return sdfUI.format(targetDate);
     }
 }

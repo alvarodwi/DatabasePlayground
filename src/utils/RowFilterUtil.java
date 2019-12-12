@@ -14,10 +14,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author AlvaroDwi
- */
+//based from https://www.logicbig.com/tutorials/java-swing/jtable-row-filter-highlighting.html ROW-FILTER
 public class RowFilterUtil {
    public static JTextField createRowFilter(JTable table) {
         RowSorter<? extends TableModel> rs = table.getRowSorter();

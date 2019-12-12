@@ -7,15 +7,20 @@ package test;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.Kehadiran;
 import model.Matpel;
 import model.Rekapan;
 import model.Siswa;
 import repository.AbsensiRepository;
+import utils.ButtonColumn;
 import utils.DisplayableObjectTableModel;
 import utils.ObjectTableModel;
 import utils.RendererHighlighted;
@@ -32,8 +37,8 @@ public class MainTableTesting {
 
         AbsensiRepository repo = new AbsensiRepository();
 
-        ObjectTableModel<Siswa> tableModel = new DisplayableObjectTableModel<>(Siswa.class);
-        tableModel.setObjectRows(repo.siswaDao.getAllSiswa());
+        ObjectTableModel<Rekapan> tableModel = new DisplayableObjectTableModel<>(Rekapan.class);
+        tableModel.setObjectRows(repo.rekapanDao.getAllRekapan());
         JTable table = new JTable(tableModel);
 
         JTextField filterField = RowFilterUtil.createRowFilter(table);
@@ -42,6 +47,16 @@ public class MainTableTesting {
         JPanel jp = new JPanel();
         jp.add(filterField);
         frame.add(jp, BorderLayout.NORTH);
+
+        //cek tabel kehadiran
+//        Action printLogDetail = new AbstractAction() {
+//            public void actionPerformed(ActionEvent e)
+//            {
+//                System.out.println("CLICKED");
+//            }
+//        };
+//        
+//        ButtonColumn btnPrintLog = new ButtonColumn(table,printLogDetail,5);
 
         JScrollPane pane = new JScrollPane(table);
         pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

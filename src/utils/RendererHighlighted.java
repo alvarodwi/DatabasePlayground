@@ -11,10 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- *
- * @author AlvaroDwi
- */
+//based from https://www.logicbig.com/tutorials/java-swing/jtable-row-filter-highlighting.html ROW-FILTER
 public class RendererHighlighted extends DefaultTableCellRenderer {
     private JTextField searchField;
 

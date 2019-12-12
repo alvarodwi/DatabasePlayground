@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 
-/**
- *
- * @author AlvaroDwi
- */
+//based from https://www.logicbig.com/tutorials/java-swing/jtable-row-filter-highlighting.html ROW-FILTER
 public class LabelHighlighted extends JLabel {
     private List<Rectangle2D> rectangles = new ArrayList<>();
     private Color colorHighlight = Color.YELLOW;
