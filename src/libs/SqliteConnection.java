@@ -16,27 +16,28 @@ import java.sql.Statement;
  * @author AlvaroDwi
  */
 public class SqliteConnection {
+
     private Connection conn;
     private Statement stmt;
-    
-    public SqliteConnection() throws SQLException{
-        String url = "jdbc:sqlite:"+System.getProperty("user.dir")+"\\absensi.db";
+
+    public SqliteConnection() throws SQLException {
+        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\absensi.db";
         System.out.println(url);
-        try{
+        try {
             conn = DriverManager.getConnection(url);
             stmt = conn.createStatement();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     //Create,Update,Delete of CRUD
-    public int executeQuery(String sql) throws SQLException{
+    public int executeQuery(String sql) throws SQLException {
         return stmt.executeUpdate(sql);
     }
-    
+
     //Read of CRUD
-    public ResultSet getQuery(String sql) throws SQLException{
+    public ResultSet getQuery(String sql) throws SQLException {
         ResultSet rs = stmt.executeQuery(sql);
         return rs;
     }

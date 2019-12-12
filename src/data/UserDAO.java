@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import libs.SqliteConnection;
 import model.User;
+import utils.Constants;
 
 /**
  *
@@ -36,7 +37,7 @@ public class UserDAO {
             user.setId(rs.getInt("id"));
             user.setRole(rs.getString("role"));
             user.setNik(rs.getString("nik"));
-            user.setName(rs.getString("name"));
+            user.setNama(rs.getString("nama"));
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
             rs.close();
@@ -57,7 +58,7 @@ public class UserDAO {
                 user.setId(rs.getInt("id"));
                 user.setRole(rs.getString("role"));
                 user.setNik(rs.getString("nik"));
-                user.setName(rs.getString("name"));
+                user.setNama(rs.getString("nama"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 //add user from db into list
@@ -75,7 +76,7 @@ public class UserDAO {
         String query = "INSERT INTO user(role,nik,name,username,password) VALUES ('"
                 +user.getRole()+"','"
                 +user.getNik()+"','"
-                +user.getName()+"','"
+                +user.getNama()+"','"
                 +user.getUsername()+"','"
                 +user.getPassword()+"')";      
         System.out.println(query);
@@ -95,7 +96,7 @@ public class UserDAO {
     public void updateUser(int id,User user){
         String query = "UPDATE user SET "
                 +"nik = '"+user.getNik()+"',"
-                +"name = '"+user.getName()+"',"
+                +"name = '"+user.getNama()+"',"
                 +"role = '"+user.getRole()+"',"
                 +"username = '"+user.getUsername()+"',"
                 +"password = '"+user.getPassword()+"',"

@@ -20,38 +20,42 @@ import model.User;
  * @author AlvaroDwi
  */
 public class AbsensiRepository {
+
     //dao access
     public SiswaDAO siswaDao;
     public MatpelDAO matpelDao;
     public RekapanDAO rekapanDao;
     public KehadiranDAO kehadiranDao;
     public UserDAO userDao;
-    
+
     private User activeUser;
-    
-    public AbsensiRepository(){
-        try{
-            SqliteConnection conn = new SqliteConnection(); 
+
+    public AbsensiRepository() {
+        try {
+            SqliteConnection conn = new SqliteConnection();
             //dao init
             siswaDao = new SiswaDAO(conn);
             matpelDao = new MatpelDAO(conn);
             rekapanDao = new RekapanDAO(conn);
             kehadiranDao = new KehadiranDAO(conn);
-            userDao= new UserDAO(conn);
-        }catch(SQLException e){
+            userDao = new UserDAO(conn);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     //get logged in user data
-    public User getActiveUser(){
+    public User getActiveUser() {
         return this.activeUser;
     }
+
     //set user data after login
-    public void setActiveUser(User user){
+    public void setActiveUser(User user) {
         this.activeUser = user;
     }
+
     //reset user data after logout
-    public void resetActiveUser(){
+    public void resetActiveUser() {
         this.activeUser = null;
     }
 }

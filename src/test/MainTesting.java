@@ -17,7 +17,8 @@ import model.User;
  * @author AlvaroDwi
  */
 public class MainTesting {
-    public static void main(String[] args){
+    
+    public static void main(String[] args) {
         AbsensiRepository repo = new AbsensiRepository();
         
         Siswa thisSiswa = repo.siswaDao.getDetailSiswa(1);
@@ -34,24 +35,24 @@ public class MainTesting {
         activeKehadiran.forEach((presensi) -> {
             System.out.println(presensi.getStatus());
         });
-        
-        User newUser = new User();
-        newUser.setName("Offy Sholehatun");
-        newUser.setNik("666-666-666");
-        newUser.setRole("Superadmin");
-        newUser.setUsername("bunda");
-        newUser.setPassword("ummi");
-        repo.userDao.insertUser(newUser);
-        
+
+//        User newUser = new User();
+//        newUser.setNama("Offy Sholehatun");
+//        newUser.setNik("666-666-666");
+//        newUser.setRole("Superadmin");
+//        newUser.setUsername("bunda");
+//        newUser.setPassword("ummi");
+//        repo.userDao.insertUser(newUser);
 //        insert
-//        Siswa newSiswa = new Siswa(10);
-//        newSiswa.setNama("FAKHRI");
-//        newSiswa.setKelas("RPL");
-//        newSiswa.setNis("1718117119");
-//        newSiswa.setJenisKelamin("L");
-//        newSiswa.setTanggalLahir("April");
-//        newSiswa.setTempatLahir("Bandung");
-//        repo.siswaDao.insertSiswa(newSiswa);
+        Siswa newSiswa = new Siswa();
+        newSiswa.setId(10);
+        newSiswa.setNama("FAKHRI");
+        newSiswa.setKelas("RPL");
+        newSiswa.setNis("1718117119");
+        newSiswa.setJenisKelamin("L");
+        newSiswa.setTanggalLahir("April");
+        newSiswa.setTempatLahir("Bandung");
+        repo.siswaDao.insertSiswa(newSiswa);
 //        update
 //        thisSiswa.setNama("ALVARO");
 //        repo.siswaDao.updateSiswa(thisSiswa.getId(), thisSiswa);
