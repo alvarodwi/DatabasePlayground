@@ -11,23 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 import libs.SqliteConnection;
 import model.Kehadiran;
+import utils.Constants;
 
 /**
  *
  * @author AlvaroDwi
  */
 public class KehadiranDAO {
+
     //data access object
     private SqliteConnection conn;
-    
+
     //initialize
-    public KehadiranDAO(SqliteConnection conn){
+    public KehadiranDAO(SqliteConnection conn) {
         this.conn = conn;
     }
-    
+
     //get single kehadiran
-    public Kehadiran getDetailKehadiran(int id){
-        String query = "SELECT * FROM kehadiran WHERE id = "+id;
+    public Kehadiran getDetailKehadiran(int id) {
+        String query = "SELECT * FROM kehadiran WHERE id = " + id;
         Kehadiran kehadiran = new Kehadiran();
         try {
             ResultSet rs = conn.getQuery(query);
@@ -35,7 +37,6 @@ public class KehadiranDAO {
             //set data
             kehadiran.setId(rs.getInt("id"));
             kehadiran.setIdSiswa(rs.getInt("id_siswa"));
-            kehadiran.setIdMatpel(rs.getInt("id_matpel"));
             kehadiran.setIdRekapan(rs.getInt("id_rekapan"));
             kehadiran.setJamMasuk(rs.getString("jam_masuk"));
             kehadiran.setJamKeluar(rs.getString("jam_keluar"));
@@ -43,21 +44,20 @@ public class KehadiranDAO {
             rs.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } 
+        }
         return kehadiran;
     }
-    
+
     //get all kehadiran
-    public List<Kehadiran> getActiveKehadiran(){
+    public List<Kehadiran> getActiveKehadiran() {
         String query = "SELECT * FROM kehadiran WHERE id_rekapan IS NULL";
         List<Kehadiran> listKehadiran = new ArrayList<>();
-        try{
+        try {
             ResultSet rs = conn.getQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 Kehadiran kehadiran = new Kehadiran();
                 kehadiran.setId(rs.getInt("id"));
                 kehadiran.setIdSiswa(rs.getInt("id_siswa"));
-                kehadiran.setIdMatpel(rs.getInt("id_matpel"));
                 kehadiran.setIdRekapan(rs.getInt("id_rekapan"));
                 kehadiran.setJamMasuk(rs.getString("jam_masuk"));
                 kehadiran.setJamKeluar(rs.getString("jam_keluar"));
@@ -66,22 +66,21 @@ public class KehadiranDAO {
                 listKehadiran.add(kehadiran);
             }
             rs.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return listKehadiran;
     }
-    
-    public List<Kehadiran> getKehadiranByRekapan(int idRekapan){
-        String query = "SELECT * FROM kehadiran WHERE id_rekapan = '"+idRekapan+"'";
+
+    public List<Kehadiran> getKehadiranByRekapan(int idRekapan) {
+        String query = "SELECT * FROM kehadiran WHERE id_rekapan = '" + idRekapan + "'";
         List<Kehadiran> listKehadiran = new ArrayList<>();
-        try{
+        try {
             ResultSet rs = conn.getQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 Kehadiran kehadiran = new Kehadiran();
                 kehadiran.setId(rs.getInt("id"));
                 kehadiran.setIdSiswa(rs.getInt("id_siswa"));
-                kehadiran.setIdMatpel(rs.getInt("id_matpel"));
                 kehadiran.setIdRekapan(rs.getInt("id_rekapan"));
                 kehadiran.setJamMasuk(rs.getString("jam_masuk"));
                 kehadiran.setJamKeluar(rs.getString("jam_keluar"));
@@ -90,68 +89,66 @@ public class KehadiranDAO {
                 listKehadiran.add(kehadiran);
             }
             rs.close();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return listKehadiran;
     }
-    
+
     //insert into kehadiran
-    public void insertKehadiran(Kehadiran kehadiran){
+    public void insertKehadiran(Kehadiran kehadiran) {
         String query = "INSERT INTO kehadiran(id_siswa,id_matpel,id_rekapan,jam_masuk,jam_keluar,status) VALUES ('"
-                +kehadiran.getIdSiswa()+","
-                +kehadiran.getIdMatpel()+","
-                +kehadiran.getIdRekapan()+","
-                +kehadiran.getJamMasuk()+","
-                +kehadiran.getJamKeluar()+","
-                +kehadiran.getStatus()+"')";
+                + kehadiran.getIdSiswa() + ","
+                + kehadiran.getIdRekapan() + ","
+                + kehadiran.getJamMasuk() + ","
+                + kehadiran.getJamKeluar() + ","
+                + kehadiran.getStatus() + "')";
         System.out.println(query);
-        try{
+        try {
             int queryStatus = conn.executeQuery(query);
-            if(queryStatus == 1){
+            if (queryStatus == 1) {
                 //success
-            }else{
+            } else {
                 //fail
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     //update into kehadiran
-    public void updateKehadiran(int id,Kehadiran kehadiran){
+    public void updateKehadiran(int id, Kehadiran kehadiran) {
         String query = "UPDATE kehadiran SET "
-                +"id_siswa = '"+kehadiran.getIdSiswa()+"',"
-                +"id_matpel = '"+kehadiran.getIdMatpel()+"',"
-                +"id_rekapan = '"+kehadiran.getIdRekapan()+"',"
-                +"jam_masuk = '"+kehadiran.getJamMasuk()+"',"
-                +"jam_keluar = '"+kehadiran.getJamKeluar()+"',"
-                +"status_kehadiran = '"+kehadiran.getStatus()+"'"
-                +" WHERE id = '"+id+"'";
+                + "id_siswa = '" + kehadiran.getIdSiswa() + "',"
+                + "id_rekapan = '" + kehadiran.getIdRekapan() + "',"
+                + "jam_masuk = '" + kehadiran.getJamMasuk() + "',"
+                + "jam_keluar = '" + kehadiran.getJamKeluar() + "',"
+                + "status_kehadiran = '" + kehadiran.getStatus() + "'"
+                + " WHERE id = '" + id + "'";
         System.out.println(query);
-        try{
+        try {
             int queryStatus = conn.executeQuery(query);
-            if(queryStatus == 1){
+            if (queryStatus == 1) {
                 //success
-            }else{
+            } else {
                 //fail
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     //delete Kehadiran - by Id
-    public void deleteKehadiran(int id){
-        String query = "DELETE FROM kehadiran WHERE id = '"+id+"'";
-        try{
+    public void deleteKehadiran(int id) {
+        String query = "DELETE FROM kehadiran WHERE id = '" + id + "'";
+        try {
             int queryStatus = conn.executeQuery(query);
-            if(queryStatus == 1){
+            if (queryStatus == 1) {
                 //success
-            }else{
+            } else {
                 //fail
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

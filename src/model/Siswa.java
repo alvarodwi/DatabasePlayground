@@ -6,12 +6,15 @@
 package model;
 
 import java.util.Objects;
+import utils.Constants;
+import utils.annotation.DisplayAs;
 
 /**
  *
  * @author AlvaroDwi
  */
 public class Siswa {
+
     //init variable
     private int id; //id dari rfid nya, tipe datanya apa coba?
     private String nis; //id siswa yang ditampilkan
@@ -22,56 +25,65 @@ public class Siswa {
     private String tempatLahir;
     private String tanggalLahir;
 
-    public Siswa(int id) {
-        this.id = id;
-    }
-    
-    public int getId(){
+    //getter
+    @DisplayAs(value = Constants.CARD_ID, index = 0)
+    public int getId() {
         return id;
     }
 
+    @DisplayAs(value = Constants.NIS, index = 1)
     public String getNis() {
         return nis;
+    }
+
+    @DisplayAs(value = Constants.NAMA, index = 2)
+    public String getNama() {
+        return nama;
+    }
+
+    @DisplayAs(value = Constants.JENKEL, index = 3)
+    public String getJenisKelamin() {
+        return jenisKelamin;
+    }
+
+    @DisplayAs(value = Constants.TEMPAT_LAHIR, index = 5)
+    public String getTempatLahir() {
+        return tempatLahir;
+    }
+
+    @DisplayAs(value = Constants.TANGGAL_LAHIR, index = 6)
+    public String getTanggalLahir() {
+        return tanggalLahir;
+    }
+    
+    @DisplayAs(value = Constants.KELAS, index = 4)
+    public String getKelas() {
+        return kelas;
+    }
+
+    //setter
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNis(String nis) {
         this.nis = nis;
     }
 
-    public String getNama() {
-        return nama;
-    }
-
     public void setNama(String nama) {
         this.nama = nama;
-    }
-
-    public String getKelas() {
-        return kelas;
     }
 
     public void setKelas(String kelas) {
         this.kelas = kelas;
     }
 
-    public String getJenisKelamin() {
-        return jenisKelamin;
-    }
-
     public void setJenisKelamin(String jenis_kelamin) {
         this.jenisKelamin = jenis_kelamin;
     }
 
-    public String getTempatLahir() {
-        return tempatLahir;
-    }
-
     public void setTempatLahir(String tempat_lahir) {
         this.tempatLahir = tempat_lahir;
-    }
-
-    public String getTanggalLahir() {
-        return tanggalLahir;
     }
 
     public void setTanggalLahir(String tanggal_lahir) {

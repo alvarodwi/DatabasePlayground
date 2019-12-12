@@ -10,60 +10,78 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.Constants;
+import utils.annotation.DisplayAs;
 
 /**
  *
  * @author AlvaroDwi
  */
 public class Rekapan {
+
     private int id; // ini juga autoincrement
+    private int idMatpel;
     private String tanggal; // format YYYY-MM-DD
     //biar gampang filternya
     private String bulan; //eg: Januari
     private String tahun; // eg: 
     private String semester; // eg: Ganjil
+    //getter
 
+    @DisplayAs(value = Constants.ID, index = 0)
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getIdMatpel() {
+        return idMatpel;
     }
 
     public String getTanggal() {
         return this.tanggal;
     }
-    
-    public String getTanggalFormatted(){
-        return this.formatDate(this.tanggal);
+
+    //setter
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setIdMatpel(int idMatpel) {
+        this.idMatpel = idMatpel;
     }
 
     public void setTanggal(String tanggal) {
         this.extractDateStringAttribute(tanggal);
         this.tanggal = tanggal;
     }
-    
-    private void extractDateStringAttribute(String date){
+
+    //attribute
+    @DisplayAs(value = Constants.TANGGAL_REKAPAN, index = 1)
+    public String getTanggalAttribute() {
+        return this.formatDate(this.tanggal);
+    }
+
+    //formatter
+    private void extractDateStringAttribute(String date) {
         //split date
         String[] splitDate = date.split("-");
         this.bulan = splitDate[1];
         this.tahun = splitDate[0];
         this.determineSemester(splitDate[1]);
     }
-    
-    private void determineSemester(String month){
-        if(Integer.parseInt(month)<=6){
+
+    private void determineSemester(String month) {
+        if (Integer.parseInt(month) <= 6) {
             this.semester = "Ganjil";
-        }else{
+        } else {
             this.semester = "Genap";
         }
     }
-    
+
     SimpleDateFormat sdfDatabase = new SimpleDateFormat("YYYY-MM-DD");
     SimpleDateFormat sdfUI = new SimpleDateFormat("dd, MMMM YYYY");
 
-    private String formatDate(String date){
+    private String formatDate(String date) {
         Date formatted;
         String result = "";
         try {
